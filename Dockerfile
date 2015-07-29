@@ -1,2 +1,3 @@
 FROM python:2-onbuild
-CMD ['./aggregator.py']
+WORKDIR /srv
+CMD python aggregator.py
