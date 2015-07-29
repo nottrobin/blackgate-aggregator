@@ -6,7 +6,7 @@ An RSS news aggregator website.
 Local development
 ---
 
-[Install docker-compose][] and run
+[Install docker-compose][] to bring up the development server on port 8000:
 
 ``` bash
 docker-compose up
