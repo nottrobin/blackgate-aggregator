@@ -1,0 +1,5 @@
+aggregator:
+  build: .
+  volumes: [".:/srv"]
+  working_dir: /srv
+  ports: ["8000:5000"]
