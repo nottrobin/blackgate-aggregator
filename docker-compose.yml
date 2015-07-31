@@ -5,4 +5,4 @@ aggregator:
 sass:
   image: ubuntudesign/sass
   volumes: [".:/srv"]
-  command: sass --watch /srv/css/global.scss
+  command: sh -c "sass --update /srv/css/global.scss && sass --watch /srv/css/global.scss"
