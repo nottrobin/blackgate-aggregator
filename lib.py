@@ -1,9 +1,11 @@
 # System
 from datetime import datetime
 from hashlib import sha1
+from urlparse import urlparse
 import string
 
 # Modules
+from jinja2 import Environment, FileSystemLoader
 import feedparser
 import requests
 import requests_cache
@@ -69,6 +71,26 @@ def article_hash(article):
     return sha1(article['id']).hexdigest()[:6]
 
 
+def article_data(article):
+    """
+    Format article RSS object into a nicer structure
+    for templates
+    """
+
+    link = article['link']
+    link_parts = urlparse(link)
+    domain = link_parts.netloc.replace('www.', '')
+
+    return {
+        'path': article_path(article),
+        'date': article['updated'][:10],
+        'title': article['title'].encode('utf-8'),
+        'content': article['summary'].encode('utf-8'),
+        'link': article['link'],
+        'domain': domain
+    }
+
+
 def find_article_by_hash(articles, hash_id):
     """
     Given an article's hash, find the article
@@ -77,3 +99,15 @@ def find_article_by_hash(articles, hash_id):
     for article in articles:
         if hash_id == article_hash(article):
             return article
+
+
+def parse_template(template_name, context):
+    """
+    Parse a template with a specific context
+    from within the "templates" directory
+    """
+
+    jinja2_environment = Environment(loader=FileSystemLoader("templates"))
+    template = jinja2_environment.get_template(template_name)
+
+    return template.render(**context)
