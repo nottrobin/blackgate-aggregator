@@ -1,0 +1,20 @@
+{% set body_class = "index" %}
+{% extends "base.html" %}
+{% block main_content %}
+<nav class="article-index">
+  <ul>
+    {% for article in articles %}
+    <li>
+      <article>
+        <a href="{{ article.path }}">
+          <date>{{ article.date }}</date>
+          <h1>{{ article.title }}</h1>
+        </a>
+
+        <p>Syndicated <a href="{{ article.link }}">from {{ article.domain }}</a></p>
+      </article>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+{% endblock main_content %}

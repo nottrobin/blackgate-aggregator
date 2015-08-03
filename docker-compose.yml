@@ -2,3 +2,7 @@ aggregator:
   build: .
   volumes: [".:/srv"]
   ports: ["8000:5000"]
+sass:
+  image: ubuntudesign/sass
+  volumes: [".:/srv"]
+  command: sh -c "sass --update /srv/css/global.scss && sass --watch /srv/css/global.scss"
